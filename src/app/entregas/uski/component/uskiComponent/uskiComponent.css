@@ -11,6 +11,7 @@
   min-height: 100vh;
   background: url('/uskiImages/background.avif') no-repeat center center;
   background-size: cover;
+  background-attachment: fixed;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -23,9 +24,8 @@
   max-width: 90%;
   min-height: calc(100vh - 80px); /* Adjust for padding */
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 40px;
   box-sizing: border-box;
   margin-bottom: 40px;
 }
-

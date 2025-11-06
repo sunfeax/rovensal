@@ -1,3 +1,9 @@
 <section class="products">
   <h2>OUR PRODUCTS</h2>
+
+  <div class="cards grid">
+    @for (product of products; track product.id) {
+    <app-product-card [product]="product"></app-product-card>
+    }
+  </div>
 </section>
