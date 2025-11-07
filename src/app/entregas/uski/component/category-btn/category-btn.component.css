@@ -6,11 +6,15 @@ button {
   padding: 10px 20px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
-  background: linear-gradient(135deg, #363636, #020202);
-  color: #fff;
-  max-width: 200px;
+  min-width: 80px;
+  background: #fff;
+  text-align: center;
+  color: black;
+  border: #363636 2px solid;
 }
 
 button:hover {
+  color: #fff;
   box-shadow: 0 16px 32px rgba(106, 105, 128, 0.322);
+  background: linear-gradient(135deg, #363636, #020202);
 }

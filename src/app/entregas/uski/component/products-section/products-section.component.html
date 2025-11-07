@@ -16,9 +16,10 @@
   </div>
 
   <div class="category-buttons">
-    <button class="category-btn" type="button">All</button>
+    <button type="button">All</button>
+
     @for (category of categories; track category.id) {
-    <app-category-btn class="category-btn" [category]="category"></app-category-btn>
+    <app-category-btn [category]="category"></app-category-btn>
     }
   </div>
 
