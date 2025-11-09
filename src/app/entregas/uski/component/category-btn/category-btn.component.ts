@@ -10,4 +10,5 @@ import { CommonModule } from '@angular/common';
 })
 export class CategoryBtnComponent {
   @Input() category!: Category;
+  @Input() isActive: boolean = false;
 }

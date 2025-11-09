@@ -16,10 +16,12 @@
   </div>
 
   <div class="category-buttons">
-    <button type="button">All</button>
-
     @for (category of categories; track category.id) {
-    <app-category-btn [category]="category"></app-category-btn>
+    <app-category-btn
+      [category]="category"
+      [isActive]="selectedCategoryId === category.id"
+      (click)="selectCategory(category.id)">
+    </app-category-btn>
     }
   </div>
 

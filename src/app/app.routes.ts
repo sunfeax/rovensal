@@ -41,12 +41,12 @@ export const routes: Routes = [
   { path: 'sempertegui', component: SemperteguiComponent },
   { path: 'silvestre', component: SilvestreComponent },
   { path: 'soares', component: SoaresComponent },
-  { path: 'uski',
-    component: UskiComponent,
+  { path: 'uski', component: UskiComponent,
     children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: UskiHomePage },
       { path: 'contact', component: UskiContactPage }
     ]
-  },
+ },
   { path: 'zanon', component: ZanonComponent },
 ];

@@ -161,18 +161,3 @@
   transform: translateY(-2px);
   background: rgba(148, 163, 184, 0.22);
 }
-
-@media (max-width: 640px) {
-  .product-card {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .product-card__body {
-    padding: 18px 18px 20px;
-  }
-
-  .product-card__actions {
-    flex-direction: column;
-  }
-}

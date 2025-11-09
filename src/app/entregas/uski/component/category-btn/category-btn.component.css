@@ -2,6 +2,7 @@ button {
   flex: 1 1 auto;
   border: none;
   font-size: 16px;
+  border-radius: 10px;
   font-weight: 400;
   padding: 10px 20px;
   cursor: pointer;
@@ -17,4 +18,10 @@ button:hover {
   color: #fff;
   box-shadow: 0 16px 32px rgba(106, 105, 128, 0.322);
   background: linear-gradient(135deg, #363636, #020202);
+}
+
+button.active {
+  color: #fff;
+  background: linear-gradient(135deg, #363636, #020202);
+  box-shadow: 0 16px 32px rgba(106, 105, 128, 0.322);
 }

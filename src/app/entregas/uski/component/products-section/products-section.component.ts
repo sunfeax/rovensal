@@ -23,6 +23,7 @@ export class ProductsSectionComponent {
   categories: Category[] = [];
   searchQuery = '';
   originalProducts: Product[] = [];
+  selectedCategoryId: number = 0; // categoria All por defecto 
 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
@@ -33,9 +34,16 @@ export class ProductsSectionComponent {
       this.originalProducts = [...products];
     });
 
-    // obtener todas las categorias de API
+    // obtener todas las categorias de API y añadir categoria "All"
     this.catService.getAllCategories().subscribe((categories) => {
-      this.categories = categories;
+      this.categories = [{ 
+        id: 0,
+        name: 'All',
+        image: '',
+        slug: 'all',
+        creationAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }, ...categories]
     });
   }
 
@@ -70,4 +78,17 @@ export class ProductsSectionComponent {
         p.description?.toLowerCase().includes(query)
     );
   }
+
+  selectCategory(id: number) {
+    this.selectedCategoryId = id;
+    
+    if (id === 0) {
+      this.products = this.originalProducts;
+    } else {
+      this.products = this.originalProducts.filter(
+        product => product.category?.id === id
+      );
+    }
+  }
+
 }
