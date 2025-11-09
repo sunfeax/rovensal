@@ -18,12 +18,13 @@ import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 export class ProductsSectionComponent {
   private productService = inject(ProductService);
   private catService = inject(CategoryService);
-
+  
   products: Product[] = [];
   categories: Category[] = [];
   searchQuery = '';
   originalProducts: Product[] = [];
-  selectedCategoryId: number = 0; // categoria All por defecto 
+  selectedCategoryId: number = 0; // categoria All por defecto
+  oProduct: Product = {} as Product;
 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
@@ -90,5 +91,4 @@ export class ProductsSectionComponent {
       );
     }
   }
-
 }

@@ -1,0 +1,44 @@
+<div class="product-dialog-card">
+  <div class="product-dialog-card__media">
+    <img
+      [src]="data.product.images && data.product.images.length ? data.product.images[0] : fallbackImage"
+      [alt]="data.product.title"
+      class="product-dialog-card__image"
+    />
+
+    <span class="product-dialog-card__badge">
+      {{ data.product.category.name || 'Category' }}
+    </span>
+
+    <span class="product-dialog-card__price">
+      € {{ data.product.price }}
+    </span>
+
+    <button mat-dialog-close class="product-dialog-card__close" aria-label="Close">
+      &times;
+    </button>
+  </div>
+
+  <div class="product-dialog-card__body">
+    <h2 class="product-dialog-card__title">
+      {{ data.product.title }}
+    </h2>
+
+    <p class="product-dialog-card__description">
+      {{ data.product.description }}
+    </p>
+
+    <div class="action-btn-container">
+      <div class="action-btn-container">
+        <div class="product-dialog-card__actions">
+          <button mat-button mat-dialog-close class="product-dialog-card__action product-dialog-card__action--ghost">
+            Close
+          </button>
+          <button mat-raised-button color="primary" class="product-dialog-card__action product-dialog-card__action--primary">
+            Add to cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
