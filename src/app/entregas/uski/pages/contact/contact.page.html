@@ -40,11 +40,11 @@
             [class.error]="form.get('username')?.invalid && form.get('username')?.touched"
           />
           @if (form.get('username')?.invalid && form.get('username')?.touched) {
-          <div class="error-message">
-            @if (form.get('username')?.errors?.['required']) {
-            <span>Name is required</span>
-            }
-          </div>
+            <div class="error-message">
+              @if (form.get('username')?.errors?.['required']) {
+                <span>Name is required</span>
+              }
+            </div>
           }
         </div>
 
@@ -58,13 +58,13 @@
             [class.error]="form.get('email')?.invalid && form.get('email')?.touched"
           />
           @if (form.get('email')?.invalid && form.get('email')?.touched) {
-          <div class="error-message">
-            @if (form.get('email')?.errors?.['required']) {
-            <span>Email is required</span>
-            } @else if (form.get('email')?.errors?.['email']) {
-            <span>Please enter a valid email</span>
-            }
-          </div>
+            <div class="error-message">
+              @if (form.get('email')?.errors?.['required']) {
+                <span>Email is required</span>
+              } @else if (form.get('email')?.errors?.['email']) {
+                <span>Please enter a valid email</span>
+              }
+            </div>
           }
         </div>
 
@@ -84,11 +84,11 @@
             <span class="select-arrow">▾</span>
           </div>
           @if (form.get('interest')?.invalid && form.get('interest')?.touched) {
-          <div class="error-message">
-            @if (form.get('interest')?.errors?.['required']) {
-            <span>Interest selection is required</span>
-            }
-          </div>
+            <div class="error-message">
+              @if (form.get('interest')?.errors?.['required']) {
+                <span>Interest selection is required</span>
+              }
+            </div>
           }
         </div>
 
@@ -102,11 +102,11 @@
             [class.error]="form.get('phone')?.invalid && form.get('phone')?.touched"
           />
           @if (form.get('phone')?.invalid && form.get('phone')?.touched) {
-          <div class="error-message">
-            @if (form.get('phone')?.errors?.['required']) {
-            <span>Phone number is required</span>
-            }
-          </div>
+            <div class="error-message">
+              @if (form.get('phone')?.errors?.['required']) {
+                <span>Phone number is required</span>
+              }
+            </div>
           }
         </div>
 
@@ -120,20 +120,37 @@
             [class.error]="form.get('message')?.invalid && form.get('message')?.touched"
           ></textarea>
           @if (form.get('message')?.invalid && form.get('message')?.touched) {
-          <div class="error-message">
-            @if (form.get('message')?.errors?.['required']) {
-            <span>Message is required</span>
-            } @else if (form.get('message')?.errors?.['minlength']) {
-            <span>Message should be at least 5 characters long</span>
-            }
-          </div>
+            <div class="error-message">
+              @if (form.get('message')?.errors?.['required']) {
+                <span>Message is required</span>
+              } @else if (form.get('message')?.errors?.['minlength']) {
+                <span>Message should be at least 5 characters long</span>
+              }
+            </div>
           }
         </div>
 
         <div class="btn-container">
-          <button type="submit" [disabled]="loading" class="submit-btn">Submit</button>
+          <button type="submit" [disabled]="loading" class="submit-btn">
+            @if (loading) {
+              Sending...
+            } @else {
+              Submit
+            }
+          </button>
         </div>
       </form>
     </div>
-  </div>
+  
+  @if (successMessage) {
+    <p class="success-message">
+      {{ successMessage }}
+    </p>
+  }
+
+  @if (errorMessage) {
+    <p class="error-message global-error">
+      {{ errorMessage }}
+    </p>
+  }
 </div>

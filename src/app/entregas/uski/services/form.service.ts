@@ -1,21 +1,38 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Observable, of, throwError, delay, switchMap } from 'rxjs';
 import { Form } from '../interfaces/form.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  private baseUrl = 'https://api.ejemplo.com/';
+  constructor() {}
 
-  constructor(private http: HttpClient) {}
+  // fake API call
+  sendForm(data: Form): Observable<{ ok: boolean; data?: Form }> {
+    console.log('[FormService] Sending form (fake request)...', data);
 
-  sendForm(data: Form): Observable<Form> {
-    return this.http.post<Form>(`${this.baseUrl}post-form`, data).pipe(
-      catchError((err) => {
-        console.error('Error API:', err);
-        return throwError(() => err);
+    // 30% chance para cometer un error para simular fallos
+    const shouldFail = Math.random() < 0.3;
+
+    return of(null).pipe(
+      // imitate network latency
+      delay(800),
+      switchMap(() => {
+        if (shouldFail) {
+          console.error('[FormService] Fake API error: service unavailable');
+          return throwError(() => new Error('Fake API error: service unavailable'));
+        }
+
+        const response = {
+          ok: true,
+          data: {
+            ...data,
+          },
+        };
+
+        console.log('[FormService] Fake API success:', response);
+        return of(response);
       })
     );
   }

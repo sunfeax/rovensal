@@ -22,42 +22,68 @@ export class UskiContactPage {
   }
 
   form: FormGroup;
-
   submit$ = new Subject<void>();
   loading = false;
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
 
-  // ejemplo de RxJS para formularios
   ngOnInit() {
     this.submit$
       .pipe(
-        // continua si el formulario es valido
-        filter(() => this.form.valid),
+        // continue only if form is valid
+        filter(() => {
+          const isValid = this.form.valid;
+          if (!isValid) {
+            console.warn('[ContactPage] Form is invalid');
+          }
+          return isValid;
+        }),
 
-        // ignorar clicks repetidos
+        // ignore repeated clicks while request is running
         exhaustMap(() => {
-          this.loading = true; // activar el estado de carga
+          this.loading = true;
+          this.errorMessage = null;
 
-          console.log(this.form.value);
+          console.log('[ContactPage] Sending form...', this.form.value);
 
-          // enviar los datos al servidor
-          return (
-            this.formService
-              .sendForm(this.form.value)
-              // "finalize" se ejecuta al terminar el request
-              .pipe(finalize(() => (this.loading = false)))
+          // send data to (fake) server
+          return this.formService.sendForm(this.form.value).pipe(
+            // finalize runs on both success and error
+            finalize(() => {
+              this.loading = false;
+              console.log('[ContactPage] Request finished');
+            })
           );
         })
       )
-      .subscribe();
+      .subscribe({
+        next: (res) => {
+          console.log('[ContactPage] Form sent successfully', res);
+          // reset form on success
+          this.form.reset();
+          this.successMessage = 'Form submitted successfully!';
+          // Clear success message after 5 seconds
+          setTimeout(() => {
+            this.successMessage = null;
+          }, 5000);
+        },
+        error: (err) => {
+          console.error('[ContactPage] Error while sending form:', err);
+          this.errorMessage = err?.message || 'Unknown error';
+        },
+      });
   }
 
   onSubmit() {
     if (this.form.invalid) {
-      // marcar todos los inputs para mostrar erores
+      // mark all controls as touched to show errors
       Object.keys(this.form.controls).forEach((key) => {
         this.form.get(key)?.markAsTouched();
       });
+      console.warn('[ContactPage] Submit clicked but form is invalid');
     }
-    this.submit$.next(); // dispara el flujo de envío del formulario
+
+    // trigger the submit stream
+    this.submit$.next();
   }
 }
